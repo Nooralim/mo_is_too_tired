@@ -34,9 +34,7 @@ public class CrimeLab {
         }
     }
 
-    public List<Crime> getCrimes() {
-        return mCrimes;
-    }
+
 
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
@@ -45,5 +43,21 @@ public class CrimeLab {
             }
         }
         return null;
+    }
+
+
+
+
+    public List<Crime> getCrimes(String query) {
+        ArrayList<Crime> miniCrime = new ArrayList<>();
+
+
+        for(Crime crime : mCrimes){
+            if(!query.isEmpty() && crime.getTitle().contains(query)){
+                miniCrime.add(crime);
+            }
+
+        }
+        return miniCrime;
     }
 }

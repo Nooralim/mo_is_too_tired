@@ -11,23 +11,50 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
 
+import android.widget.SearchView;
+
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private SearchView searching;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
+
+
+        searching = (SearchView) view.findViewById(R.id.bar_search);
+
+        searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                updateUI(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                return false;
+            }
+        });
 
         mCrimeRecyclerView = (RecyclerView) view
                 .findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        updateUI();
+        //updateUI();
 
         return view;
     }
@@ -35,12 +62,12 @@ public class CrimeListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        //updateUI();
     }
 
-    private void updateUI() {
+    private void updateUI(String query) {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
+        List<Crime> crimes = crimeLab.getCrimes(query);
 
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
