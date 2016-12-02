@@ -27,7 +27,7 @@ public class CrimeLab {
             ImageView v1 = new ImageView(context);
 
             crime.setImage(v1);
-            v1.setImageResource(context.getResources().getIdentifier("drawable/images" + (i%3), null, context.getPackageName()));
+            v1.setImageResource(context.getResources().getIdentifier("drawable/images" + (i%6), null, context.getPackageName()));
 
             mCrimes.add(crime);
 
